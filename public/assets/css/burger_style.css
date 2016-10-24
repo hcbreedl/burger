@@ -1,0 +1,16 @@
+h1 {
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+}
+
+.devour {
+	background-color: #e53935;
+}
+
+#submit {
+	height: 50px;
+	width: 100%;
+}

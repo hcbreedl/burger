@@ -1,0 +1,30 @@
+<div class='container'>
+  <h1>Eat Da Burger!</h1>
+
+<div class='col s7'>
+  <ul>
+    {{#each burgers}}
+      <li class='burgers'>
+        <p>
+          {{this.id}}. {{this.burger_name}}
+
+          <form action="/update" method="POST">
+            <input type="hidden" name="id" value="{{this.id}}">
+            <button type="submit" class="waves-effect waves-light btn devour">Devour It!</button>
+          </form>
+        </p>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+
+  <h2>New Burger</h2>
+  <form method="POST" action="/create" class="button-size">
+    <div class='row'>
+  	   <textarea class="materialize-textarea" type="text" name="burger_name"></textarea>
+    </div>
+    <div class='row'>
+  	   <button id="submit" type="submit" class="waves-effect waves-light btn">Save Burger</button>
+    </div>
+  </form>
+</div>
