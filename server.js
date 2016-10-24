@@ -1,10 +1,10 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var methodOverride = require('method-override')
+var methodOverride = require('method-override');
 var orm = require('./config/orm.js');
 // var burgers = require('./models/burgers.js');
 // var router = require('./controllers/burgers_controller.js');
-var connection = require('./config/connection.js');
+// var connection = require('./config/connection.js');
 
 var app = express();
 app.use(express.static(__dirname + '/public'));
@@ -47,23 +47,26 @@ app.set('view engine', 'handlebars');
 // router.new();
 // router.update();
 
-app.get('/', function(req,res) {
-	orm.selectAll(function (result) {
-		data = result;
-		console.log(data);
-		res.render('index', {burgers: data});
-	});
-});
+// app.get('/', function(req,res) {
+// 	orm.selectAll(function (result) {
+// 		data = result;
+// 		console.log(data);
+// 		res.render('index', {burgers: data});
+// 	});
+// });
 
-app.post('/create', function(req,res){
-    orm.insertOne(req.body.burger_name);
-    res.redirect('/');
-});
+// app.post('/create', function(req,res){
+//     orm.insertOne(req.body.burger_name);
+//     res.redirect('/');
+// });
 
-app.put('/update', function(req,res){
-    orm.updateOne(req.body.id)
-    res.redirect('/');
-});
+// app.put('/update', function(req,res){
+//     orm.updateOne(req.body.id)
+//     res.redirect('/');
+// });
+
+var routes = require('./controllers/burgers_controller.js');
+app.use('/', routes);
 
 var port = 3000;
 app.listen(port);

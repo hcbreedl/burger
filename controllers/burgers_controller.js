@@ -4,32 +4,31 @@
 
 var express = require('express');
 var burgers = require('./../models/burgers.js');
-var app = express();
+// var orm = require('./../config/orm.js');
+var router = express.Router();
 
 // Create the router for the app, and export the router at the end of your file.
 
-var router = {
-	get: function () {
-		app.get('/', function(req,res) {
-		    burgers.all();
-		});
-	},
-	// new: function () {
-	// 	app.post('/create', function(req,res){
-	// 	    burgers.new();
-	// 	});
-	// },
-	// app.delete('/delete', function(req,res){
-	//     connection.query('DELETE FROM quotes WHERE id = ?', [req.body.id], function(err, result) {
-	//       if (err) throw err;
-	//       res.redirect('/');
-	//     });
-	// });
-	// update: function () {
-	// 	app.put('/update', function(req,res){
-	// 		burgers.update();
-	// 	});
-	// }
-};
+router.get('/', function(req,res) {
+	burgers.all(function (data) {
+		var hbsObject = { burgers: data };
+		res.render('index', {burgers: data});
+	});
+});
+
+router.post('/create', function(req,res){
+    // orm.insertOne(req.body.burger_name);
+    var burgerName = req.body.burger_name;
+    burgers.new(burgerName, function () {
+    	res.redirect('/');
+    }); 
+});
+
+router.put('/update', function(req,res){
+	var ID = req.body.id;
+	burgers.update(ID, function () {
+		res.redirect('/');
+	});
+});
 
 module.exports = router;

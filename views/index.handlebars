@@ -1,21 +1,47 @@
 <div class='container'>
   <h1>Eat Da Burger!</h1>
 
-<div class='col s7'>
-  <ul>
-    {{#each burgers}}
-      <li class='burgers'>
-        <p>
-          {{this.id}}. {{this.burger_name}}
+<div class='row'>
+  <div class='col s6'>
+    <h4>Ready To Be Devoured!</h4>
+    <ul>
+      {{#each burgers}}
+        {{#unless this.devoured}}
+          <li class='burgers'>
+            <p>
+              {{this.id}}. {{this.burger_name}}
 
-          <form action="/update" method="POST">
-            <input type="hidden" name="id" value="{{this.id}}">
-            <button type="submit" class="waves-effect waves-light btn devour">Devour It!</button>
-          </form>
-        </p>
-      </li>
-    {{/each}}
-  </ul>
+              <form action="/update?_method=PUT" method="POST">
+                <input type="hidden" name="id" value="{{this.id}}">
+                <button type="submit" class="waves-effect waves-light btn devour">Devour It!</button>
+              </form>
+            </p>
+          </li>
+        {{/unless}}
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class='col s3'></div>
+  <div class='col s3'>
+    <h4>Devoured!</h4>
+    <ul>
+      {{#each burgers}}
+        {{#if this.devoured}}
+          <li class='burgers'>
+            <p>
+              {{this.id}}. {{this.burger_name}}
+
+              <form action="/update?_method=PUT" method="POST">
+                <input type="hidden" name="id" value="{{this.id}}">
+                <button type="submit" class="waves-effect waves-light btn devour disabled">Devour It!</button>
+              </form>
+            </p>
+          </li>
+        {{/if}}
+      {{/each}}
+    </ul>
+  </div>
 </div>
 
   <h2>New Burger</h2>
