@@ -1,19 +1,15 @@
 var connection = require('./connection.js');
 
-// object relational mapper (ORM)
-
 var orm = {
 	selectAll: function (cb) {
 		var queryString = 'SELECT * FROM burgers;';
 		connection.query(queryString, function (err, result) {
-			// console.log(result);
-			// res.render('index', {burgers: result});
 			cb(result);
 		});
 	},
 	insertOne: function (burger_name, cb) {
 		connection.query('INSERT INTO burgers (burger_name, devoured) VALUES (?, false)', [burger_name], function(err, result) {
-	      if (err) throw err;  
+	      if (err) throw err;
 	      cb(result);
 	    });
 	},
